@@ -33,15 +33,14 @@ let id = $('#id');
 let pw = $('#pw');
 let btn = $('#btn');
 
-
 $(btn).on('click', function(){
     //여기서 id pw로 db에 있는지 확인해보자.
     // id와 pw를 가지는 UserDto 객체 생성
+    console.log("버튼 클릭");
     var loginRequest = {
         userId: $(id).val(),
         password: $(pw).val()
     };
-    console.log(loginRequest);
     sendAjaxRequest(
         "/login",
         "POST",
@@ -63,8 +62,8 @@ $(btn).on('click', function(){
             }
         },
         function(xhr,status,error){
-            console.log("xhr: "+xhr.responseJSON.grantType+" status: "+status+"error: "+error);
-            alert(xhr.responseJSON.errorMsg);
+            console.log("xhr: "+xhr.responseJSON+" status: "+status+"error: "+error);
+            //alert(xhr.responseJSON.errorMsg);
         }
     )
 });
