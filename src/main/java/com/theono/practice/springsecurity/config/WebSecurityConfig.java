@@ -19,7 +19,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((authorizeRequests) ->
                     authorizeRequests
-                            .requestMatchers("/login").permitAll()
+                            .requestMatchers("/","/login","/js/login.js").permitAll()
                             .requestMatchers("/home").hasRole("USER")
                             .anyRequest().authenticated()
                 );
