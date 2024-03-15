@@ -5,6 +5,7 @@ import com.theono.practice.springsecurity.dto.LoginResult;
 import com.theono.practice.springsecurity.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MainController {
 
 
@@ -22,20 +24,11 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
-
-    @GetMapping("/home")
-    public String home(){
-        return "home";
-    }
-
-    @PostMapping("/login")
-    @ResponseBody
-    public ResponseEntity<LoginResult> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request){
-        return loginService.login(loginRequest, request);
-    }
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public ResponseEntity<LoginResult> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request){
+//        log.info("POST 통신 /login 들어옴");
+//        return loginService.login(loginRequest, request);
+//    }
 
 }

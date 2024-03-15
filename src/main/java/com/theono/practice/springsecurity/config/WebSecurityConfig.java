@@ -3,8 +3,10 @@ package com.theono.practice.springsecurity.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -17,19 +19,25 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests((authorizeRequests) ->
-                    authorizeRequests
-                            .requestMatchers("/","/login","/js/login.js").permitAll()
-                            .requestMatchers("/home").hasRole("USER")
-                            .anyRequest().authenticated()
+        http
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/", "/login").permitAll()
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 );
-        return http.build();
-    }
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("test").password("1234").roles("USER").build());
-        return manager;
+        http
+                .formLogin((formLogin) -> formLogin
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .permitAll()
+                );
+
+        http
+                .csrf((csrf) -> csrf
+                        .disable()
+                );
+
+        return http.build();
     }
 }
