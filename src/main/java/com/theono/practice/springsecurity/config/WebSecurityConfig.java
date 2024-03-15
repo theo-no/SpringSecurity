@@ -22,7 +22,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "/login", "/loginProc").permitAll()
+                        .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
