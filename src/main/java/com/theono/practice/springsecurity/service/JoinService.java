@@ -18,7 +18,9 @@ public class JoinService {
     public void joinProcess(JoinDto joinDto){
 
         //동일한 이름의 회원이 있는지 확인
-
+        if(userRepository.existsByUsername(joinDto.getUsername())){
+            return;
+        }
 
         UserEntity userEntity = new UserEntity(
                 joinDto.getUsername(),
