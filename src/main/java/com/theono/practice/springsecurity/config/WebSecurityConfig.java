@@ -32,6 +32,7 @@ public class WebSecurityConfig {
         http
                 .formLogin((formLogin) -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/loginProc")
+                        .defaultSuccessUrl("/admin")
                         .permitAll()
                 );
 
